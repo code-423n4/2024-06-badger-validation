@@ -1,0 +1,8 @@
+{
+  "contest": 401,
+  "handle": "Zaykov",
+  "risk": "2",
+  "title": "Add Zero Address Check and Optional Event Emission in `_doSwapChecks`",
+  "issueId": 29,
+  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/29"
+}
