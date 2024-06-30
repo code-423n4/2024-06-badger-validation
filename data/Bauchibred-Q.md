@@ -2,17 +2,18 @@
 
 ## Table of Contents
 
-| Issue ID                                                                                                            | Description                                                                                        |
-| ------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| [QA-01](#qa-01-consider-using-transfershares-directly-for-steth-transfers-for-better-efficiency-)                   | Consider using `transferShares` directly for stETH transfers for better efficiency                 |
-| [QA-02](#qa-02-import-declarations-should-import-specific-identifiers-rather-than-the-whole-file-)                  | Import declarations should import specific identifiers, rather than the whole file                 |
-| [QA-03](<#qa-03-ensure-documentation-is-sufficiently-covered-for-zaprouterbase#_transferinitialstethfromcaller()->) | Ensure documentation is sufficiently covered for `ZapRouterBase#_transferInitialStETHFromCaller()` |
-| [QA-04](#qa-04-leveragemacrobase.dooperation-should-check-flashloan-return-value-)                                  | `LeverageMacroBase.doOperation` should check flashLoan return value                                |
-| [QA-05](#qa-05-whitelisted-tokens-should-not-be-sweepable-)                                                         | Whitelisted tokens should not be sweepable                                                         |
-| [QA-06](#qa-06-consider-attaching-error-messages-to-_require_-checks-)                                              | Consider attaching error messages to _require_ checks                                              |
-| [QA-07](#qa-07-open-todos-should-be-sorted-before-live-deployment-)                                                 | Open todos should be sorted before live deployment                                                 |
-| [QA-08](<#qa-08-leveragemacrobase#_doswap()-might-not-work-for-some-tokens-like-bnb->)                              | `LeverageMacroBase#_doSwap()` might not work for some tokens like `BNB`                            |
-| [QA-09](<#qa-09-_opencdpcallback()-does-not-emit-an-event>)                                                         | `_openCdpCallback()` does not emit an event                                                        |
+| Issue ID                                                                                                           | Description                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------- |
+| [QA-01](#qa-01-consider-using-transfershares-directly-for-steth-transfers-for-better-efficiency-)                  | Consider using `transferShares` directly for stETH transfers for better efficiency                 |
+| [QA-02](#qa-02-import-declarations-should-import-specific-identifiers-rather-than-the-whole-file-)                 | Import declarations should import specific identifiers, rather than the whole file                 |
+| [QA-03](<#qa-03-ensure-documentation-is-sufficiently-covered-for-zaprouterbase#_transferinitialstethfromcaller()>) | Ensure documentation is sufficiently covered for `ZapRouterBase#_transferInitialStETHFromCaller()` |
+| [QA-04](#qa-04-leveragemacrobase.dooperation-should-check-flashloan-return-value-)                                 | `LeverageMacroBase.doOperation` should check flashLoan return value                                |
+| [QA-05](#qa-05-whitelisted-tokens-should-not-be-sweepable-)                                                        | Whitelisted tokens should not be sweepable                                                         |
+| [QA-06](#qa-06-ebtcleveragezaprouteropencdpwitheth-erroneuosly-claims-that-a-higher-margin-equals-lower-cr)        | `EbtcLeverageZapRouter#openCdpWithEth()` erroneuosly claims that a _higher margin equals lower CR_ |
+| [QA-07](#qa-07-open-todos-should-be-sorted-before-live-deployment-)                                                | Open todos should be sorted before live deployment                                                 |
+| [QA-08](<#qa-08-leveragemacrobase#_doswap()-might-not-work-for-some-tokens-like-bnb->)                             | `LeverageMacroBase#_doSwap()` might not work for some tokens like `BNB`                            |
+| [QA-09](<#qa-09-_opencdpcallback()-does-not-emit-an-event>)                                                        | `_openCdpCallback()` does not emit an event                                                        |
+| [QA-10](#qa-10-consider-attaching-error-messages-to-_require_-checks-)                                             | Consider attaching error messages to _require_ checks                                              |
 
 ## QA-01 Consider using `transferShares` directly for stETH transfers for better efficiency
 
@@ -317,54 +318,112 @@ _Following Code4rena's new QA rules, this should be flagged in an audit_... in r
 
 Consider protecting whitelisted tokens and/or heavily documenting this functionality to the end users.
 
-## QA-06 Consider attaching error messages to _require_ checks
+## QA-06 `EbtcLeverageZapRouter#openCdpWithEth()` erroneuosly claims that a _higher margin equals lower CR_
 
 ### Proof of Concept
 
-Multiple instances in scope, for example take a look at https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-protocol/packages/contracts/contracts/LeverageMacroBase.sol#L500-L507
+Take a look at https://github.com/code-423n4/2024-06-badger/blob/main/ebtc-zap-router/src/EbtcLeverageZapRouter.sol#L34-L66
 
 ```solidity
-    function _ensureNotSystem(address addy) internal {
-        /// @audit Check and add more if you think it's better
-        require(addy != address(borrowerOperations));
-        require(addy != address(sortedCdps));
-        require(addy != address(activePool));
-        require(addy != address(cdpManager));
-        require(addy != address(this)); // If it could call this it could fake the forwarded caller
+    function openCdpWithEth(
+        uint256 _debt,
+        bytes32 _upperHint,
+        bytes32 _lowerHint,
+        uint256 _stEthLoanAmount,
+        uint256 _ethMarginBalance,
+        uint256 _stEthDepositAmount,
+        bytes calldata _positionManagerPermit,
+        TradeData calldata _tradeData
+    ) external payable returns (bytes32 cdpId) {
+        uint256 _collVal = _convertRawEthToStETH(_ethMarginBalance);
+
+
+        cdpId = _openCdp(
+            _debt,
+            _upperHint,
+            _lowerHint,
+            _stEthLoanAmount,
+            _collVal,
+            _stEthDepositAmount,
+            _positionManagerPermit,
+            _tradeData
+        );
+
+
+        emit ZapOperationEthVariant(
+            cdpId,
+            EthVariantZapOperationType.OpenCdp,
+            true,
+            NATIVE_ETH_ADDRESS,
+            _ethMarginBalance,
+            _collVal,
+            msg.sender
+        );
     }
+
 ```
 
-This function is used to prevent arbitrary calls on some protected targets, issue however is that this function includes `5` requirement checks but no error message whatsoever.
+This function is used to open a CDP with raw native Ether.
+
+Issue however is that [the natspec/comment from the documentation for this function](https://github.com/code-423n4/2024-06-badger/blob/main/ebtc-zap-router/src/EbtcLeverageZapRouter.sol#L30) reads `      /// @param _ethMarginBalance The amount of margin deposit (converted from raw Ether) from the user, higher margin equals lower CR` instead of `         /// @param _ethMarginBalance The amount of margin deposit (converted from raw Ether) from the user, higher margin equals HIGHER CR`.
+
+The above documentation is erroneous in the sense that, naturally and in the case of Badger, higher margin should equal a higher CR.
 
 ### Impact
 
-Bad code design, not of the industry standard, stalls smooth user operation.
+QA, confusing code for all integrating partners (users/devs/auditors).
 
 ### Recommended Mitigation Steps
 
-Consider attaching error messages to every of the checks as is done similarly here https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/EbtcLeverageZapRouter.sol#L310-L329
+Consider applying these changes:
 
-```solidity
-    function _requireNonZeroAdjustment(
-        uint256 _stEthBalanceIncrease,
-        uint256 _debtChange,
-        uint256 _stEthBalanceDecrease
-    ) internal pure {
-        require(
-            _stEthBalanceIncrease > 0 || _stEthBalanceDecrease > 0 || _debtChange > 0,
-            "BorrowerOperations: There must be either a collateral or debt change"
+```diff
+    /// @dev Open a CDP with raw native Ether
+    /// @param _debt The total expected debt for new CDP
+    /// @param _upperHint The expected CdpId of neighboring higher ICR within SortedCdps, could be simply bytes32(0)
+    /// @param _lowerHint The expected CdpId of neighboring lower ICR within SortedCdps, could be simply bytes32(0)
+    /// @param _stEthLoanAmount The flash loan amount needed to open the leveraged Cdp position
+-    /// @param _ethMarginBalance The amount of margin deposit (converted from raw Ether) from the user, higher margin equals lower CR
++    /// @param _ethMarginBalance The amount of margin deposit (converted from raw Ether) from the user, higher margin equals higher CR
+    /// @param _stEthDepositAmount The total stETH collateral amount deposited (added) for the specified Cdp
+    /// @param _positionManagerPermit PositionPermit required for Zap approved by calling user
+    /// @param _tradeData DEX calldata for converting between debt and collateral
+    function openCdpWithEth(
+        uint256 _debt,
+        bytes32 _upperHint,
+        bytes32 _lowerHint,
+        uint256 _stEthLoanAmount,
+        uint256 _ethMarginBalance,
+        uint256 _stEthDepositAmount,
+        bytes calldata _positionManagerPermit,
+        TradeData calldata _tradeData
+    ) external payable returns (bytes32 cdpId) {
+        uint256 _collVal = _convertRawEthToStETH(_ethMarginBalance);
+
+
+        cdpId = _openCdp(
+            _debt,
+            _upperHint,
+            _lowerHint,
+            _stEthLoanAmount,
+            _collVal,
+            _stEthDepositAmount,
+            _positionManagerPermit,
+            _tradeData
+        );
+
+
+        emit ZapOperationEthVariant(
+            cdpId,
+            EthVariantZapOperationType.OpenCdp,
+            true,
+            NATIVE_ETH_ADDRESS,
+            _ethMarginBalance,
+            _collVal,
+            msg.sender
         );
     }
 
-    function _requireSingularMarginChange(
-        uint256 _stEthMarginIncrease,
-        uint256 _stEthMarginDecrease
-    ) internal pure {
-        require(
-            _stEthMarginIncrease == 0 || _stEthMarginDecrease == 0,
-            "EbtcLeverageZapRouter: Cannot add and withdraw margin in same operation"
-        );
-    }
 ```
 
 ## QA-07 Open todos should be sorted before live deployment
@@ -492,3 +551,53 @@ Take a look at https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a7
 ```
 
 According to comment - function `_openCdpCallback()` should emit an event. However, there's no event emitted by `_openCdpCallback()`.
+
+## QA-10 Consider attaching error messages to _require_ checks
+
+### Proof of Concept
+
+Multiple instances in scope, for example take a look at https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-protocol/packages/contracts/contracts/LeverageMacroBase.sol#L500-L507
+
+```solidity
+    function _ensureNotSystem(address addy) internal {
+        /// @audit Check and add more if you think it's better
+        require(addy != address(borrowerOperations));
+        require(addy != address(sortedCdps));
+        require(addy != address(activePool));
+        require(addy != address(cdpManager));
+        require(addy != address(this)); // If it could call this it could fake the forwarded caller
+    }
+```
+
+This function is used to prevent arbitrary calls on some protected targets, issue however is that this function includes `5` requirement checks but no error message whatsoever.
+
+### Impact
+
+Bad code design, not of the industry standard, stalls smooth user operation.
+
+### Recommended Mitigation Steps
+
+Consider attaching error messages to every of the checks as is done similarly here https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/EbtcLeverageZapRouter.sol#L310-L329
+
+```solidity
+    function _requireNonZeroAdjustment(
+        uint256 _stEthBalanceIncrease,
+        uint256 _debtChange,
+        uint256 _stEthBalanceDecrease
+    ) internal pure {
+        require(
+            _stEthBalanceIncrease > 0 || _stEthBalanceDecrease > 0 || _debtChange > 0,
+            "BorrowerOperations: There must be either a collateral or debt change"
+        );
+    }
+
+    function _requireSingularMarginChange(
+        uint256 _stEthMarginIncrease,
+        uint256 _stEthMarginDecrease
+    ) internal pure {
+        require(
+            _stEthMarginIncrease == 0 || _stEthMarginDecrease == 0,
+            "EbtcLeverageZapRouter: Cannot add and withdraw margin in same operation"
+        );
+    }
+```
