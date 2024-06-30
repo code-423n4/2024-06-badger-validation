@@ -1,0 +1,8 @@
+{
+  "contest": 401,
+  "handle": "Myd",
+  "risk": "2",
+  "title": "Missing Success Check in _openCdpForCallback Leads to Potential Fee Transfer Without CDP Creation",
+  "issueId": 36,
+  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/36"
+}
