@@ -1,0 +1,8 @@
+{
+  "contest": 401,
+  "handle": "Myd",
+  "risk": "2",
+  "title": "Private _sweepEbtc() Function Transfers Balance to msg.sender Without Proper Access Control",
+  "issueId": 35,
+  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/35"
+}
