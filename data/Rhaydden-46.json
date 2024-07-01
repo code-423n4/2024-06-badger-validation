@@ -1,0 +1,8 @@
+{
+  "contest": 401,
+  "handle": "Rhaydden",
+  "risk": "2",
+  "title": "Relying on the difference in the contract's stETH balance before and after the `_closeCdpOperation` could potentially allow excess withdrawal of `stETH`",
+  "issueId": 46,
+  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/46"
+}
