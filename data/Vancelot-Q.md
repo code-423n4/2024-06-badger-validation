@@ -2,13 +2,18 @@
 
 ## Summary
 
-The intended way of transferring `stETH` by Lido is via the [transferShares](https://docs.lido.fi/contracts/lido#transfershares) function, however, in order for the shares to be tracked accordingly, the correct function should be used. Judging by the NatSpec throughout the protocol, the developers are aware of the [1-2 wei issue](https://docs.lido.fi/guides/lido-tokens-integration-guide/#1-2-wei-corner-case) and have handled it well, but the [ZapRouterBase](https://github.com/code-423n4/2024-06-badger/blob/main/ebtc-zap-router/src/ZapRouterBase.sol) contract has several instances where the balance of the contract is checked using `balanceOf` whereas the [sharesOf](https://docs.lido.fi/contracts/lido#sharesof) function should be used.
+The intended way of transferring `stETH` by Lido is via the [transferShares](https://docs.lido.fi/contracts/lido#transfershares) function, however, in order for the shares to be tracked accordingly, the correct function should be used. Judging by the NatSpec throughout the protocol, the developers are aware of the [1-2 wei issue](https://docs.lido.fi/guides/lido-tokens-integration-guide/#1-2-wei-corner-case) and have handled it well, but the [ZapRouterBase](https://github.com/code-423n4/2024-06-badger/blob/main/ebtc-zap-router/src/ZapRouterBase.sol) contract has several instances where the balance of the contract is checked using `balanceOf` whereas the [sharesOf](https://docs.lido.fi/contracts/lido#sharesof) function should be used, in order for any balance discrepancies to be avoided.
 
 Instances of using balanceOf:
 
 - [__depositRawEthIntoLido](https://github.com/code-423n4/2024-06-badger/blob/main/ebtc-zap-router/src/ZapRouterBase.sol#L36-L39)
 - [_convertWstEthToStETH](https://github.com/code-423n4/2024-06-badger/blob/main/ebtc-zap-router/src/ZapRouterBase.sol#L65-L67)
 - [_transferInitialStETHFromCaller](https://github.com/code-423n4/2024-06-badger/blob/main/ebtc-zap-router/src/ZapRouterBase.sol#L109-L111)
+
+Two other instances, found in LeverageMacroBase and LeverageZapRouterBase, where the correct function sharesOf is used:
+
+- [sweepToCaller](https://github.com/ebtc-protocol/ebtc/blob/bf3ba34275f725da06d3042f289e4a11cb3a8880/packages/contracts/contracts/LeverageMacroBase.sol#L254)
+- [_sweepStEth](https://github.com/ebtc-protocol/ebtc-zap-router/blob/main/src/LeverageZapRouterBase.sol#L93)
 
 ## Recommendations
 
