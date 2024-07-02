@@ -1,0 +1,8 @@
+{
+  "contest": 401,
+  "handle": "Zims",
+  "risk": "2",
+  "title": "Potential manipulation of CDP queue position through unvalidated upperHint and lowerHint parameters",
+  "issueId": 52,
+  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/52"
+}
