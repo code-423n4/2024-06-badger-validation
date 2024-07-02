@@ -1,0 +1,8 @@
+{
+  "contest": 401,
+  "handle": "Fitro",
+  "risk": "2",
+  "title": "LeverageZapRouterBase.sol :: _adjustCdpOperation() is using the amount of stETH instead of ETH, resulting in an incorrect calculation of the shares needed to modify the collateral.",
+  "issueId": 56,
+  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/56"
+}
