@@ -1,0 +1,8 @@
+{
+  "contest": 401,
+  "handle": "Rhaydden",
+  "risk": "3",
+  "title": "Handling of `stETH` Transfers Can Lead to Rounding Errors and Incorrect Balances due to \"1-2 wei corner case\"",
+  "issueId": 57,
+  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/57"
+}
