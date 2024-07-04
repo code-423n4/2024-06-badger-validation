@@ -1,0 +1,8 @@
+{
+  "contest": 401,
+  "handle": "debo",
+  "risk": "2",
+  "title": "Unprotected Ether Withdrawal Found (transfer/send) in the ZapRouterBase contract affecting the EbtcLeverageZapRouter contract",
+  "issueId": 81,
+  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/81"
+}
