@@ -49,4 +49,23 @@ The POC is to add the following function to LeverageZaps.t.sol:
     }
 ```
 
+The output is: 
+
+```javascript
+
+LeverageMacroBase._doSwap...
+  Do the balance checks after the swap call to the aggregator
+  token to check: 0x2e234DAe75C793f67A35089C9d99245E1C58470b
+  balance of token:  17994749596122778675
+  expectedMinout:  17994749596122778675
+
+Suite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 8.27ms (1.46ms CPU time)
+
+Ran 1 test suite in 18.74ms (8.27ms CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)
+
+Failing tests:
+Encountered 1 failing test in test/LeverageZaps.t.sol:LeverageZaps
+[FAIL. Reason: revert: LeverageMacroReference: swap check failure!] t
+```
+
 Mitigation: change the comparison operator to ```>=```. 
