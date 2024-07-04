@@ -1,0 +1,8 @@
+{
+  "contest": 401,
+  "handle": "Rhaydden",
+  "risk": "2",
+  "title": "An invariant is broken which relates to Position Manager Permit not being revoked after operations, allowing unauthorized access to user CDPs",
+  "issueId": 73,
+  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/73"
+}
