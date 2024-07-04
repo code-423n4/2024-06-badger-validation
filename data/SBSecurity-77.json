@@ -1,0 +1,8 @@
+{
+  "contest": 401,
+  "handle": "SBSecurity",
+  "risk": "2",
+  "title": "Leverage router cannot perform debt decrease and collateral increase",
+  "issueId": 77,
+  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/77"
+}
