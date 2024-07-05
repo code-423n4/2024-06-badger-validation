@@ -1,0 +1,8 @@
+{
+  "contest": 401,
+  "handle": "BlockSafe",
+  "risk": "2",
+  "title": "Users Will Be Able to open CDPs with insufficient collateral due to Incorrect Collateral Value Handling in CDP Opening Process",
+  "issueId": 89,
+  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/89"
+}
