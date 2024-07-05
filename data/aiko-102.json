@@ -1,0 +1,8 @@
+{
+  "contest": 401,
+  "handle": "aiko",
+  "risk": "3",
+  "title": "Malicious actors can donate steth temporarily to Sandwich and MEV swaps through the router",
+  "issueId": 102,
+  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/102"
+}
