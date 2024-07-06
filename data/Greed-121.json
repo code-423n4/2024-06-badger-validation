@@ -1,0 +1,8 @@
+{
+  "contest": 401,
+  "handle": "Greed",
+  "risk": "2",
+  "title": "The contract does not sweep potential remaining stETH tokens",
+  "issueId": 121,
+  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/121"
+}
