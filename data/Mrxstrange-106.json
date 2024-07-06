@@ -1,0 +1,8 @@
+{
+  "contest": 401,
+  "handle": "Mrxstrange",
+  "risk": "2",
+  "title": "ERC20 tokens with no return value will fail to transfer",
+  "issueId": 106,
+  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/106"
+}
