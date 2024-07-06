@@ -1,0 +1,8 @@
+{
+  "contest": 401,
+  "handle": "Nexarion",
+  "risk": "2",
+  "title": "Position Manager Permit Not Revoked After Operations, Compromising CDP Security",
+  "issueId": 114,
+  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/114"
+}
