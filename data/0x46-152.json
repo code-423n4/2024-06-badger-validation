@@ -1,0 +1,8 @@
+{
+  "contest": 401,
+  "handle": "0x46",
+  "risk": "3",
+  "title": "A malicious user can receive large amount of eth after calling 'EbtcZapRouter' contract's '_closeCdpWithPermit()'",
+  "issueId": 152,
+  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/152"
+}
