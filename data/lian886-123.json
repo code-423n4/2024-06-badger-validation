@@ -1,0 +1,8 @@
+{
+  "contest": 401,
+  "handle": "lian886",
+  "risk": "2",
+  "title": "In the _doSwapChecks function, the comparison between the number of tokens received and expectedMinOut should use >=",
+  "issueId": 123,
+  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/123"
+}
