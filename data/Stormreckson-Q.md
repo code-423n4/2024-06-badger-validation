@@ -180,3 +180,97 @@ emit ZapOperationEthVariant(
                 msg.sender
             );
 ```
+
+3- 
+Lack of Zero-Value Check When Opening CDP
+
+
+ No check for zero values when converting assets (e.g., ETH, WETH) to stETH during the process of opening a Collateralized Debt Position (CDP). 
+TThis can result in unnecessary function calls and wasted gas fees if a user unintentionally passes a zero value. Ensuring that zero-value inputs are checked and handled appropriately can prevent such inefficiencies and improve the overall robustness of the contract.
+
+
+
+## Proof of Concept
+Here are the relevant code snippets where zero-value checks are missing:
+
+### : Conversion of ETH to stETH
+```solidity
+function _convertRawEthToStETH(uint256 _initialETH) internal returns (uint256) {
+    require(msg.value == _initialETH, "EbtcZapRouter: Incorrect ETH amount");
+    return _depositRawEthIntoLido(_initialETH);
+}
+
+function _depositRawEthIntoLido(uint256 _initialETH) internal returns (uint256) {
+    uint256 _balBefore = stEth.balanceOf(address(this));
+    payable(address(stEth)).call{value: _initialETH}("");
+    uint256 _deposit = stEth.balanceOf(address(this)) - _balBefore;
+    return _deposit;
+}
+```
+
+### : Conversion of WETH to stETH
+```solidity
+function _convertWrappedEthToStETH(uint256 _initialWETH) internal returns (uint256) {
+    uint256 _wETHBalBefore = wrappedEth.balanceOf(address(this));
+    wrappedEth.transferFrom(msg.sender, address(this), _initialWETH);
+    uint256 _wETHReiceived = wrappedEth.balanceOf(address(this)) - _wETHBalBefore;
+
+    uint256 _rawETHBalBefore = address(this).balance;
+    IWrappedETH(address(wrappedEth)).withdraw(_wETHReiceived);
+    uint256 _rawETHConverted = address(this).balance - _rawETHBalBefore;
+    return _depositRawEthIntoLido(_rawETHConverted);
+}
+```
+
+### : Transfer of stETH from caller
+```solidity
+function _transferInitialStETHFromCaller(uint256 _initialStETH) internal returns (uint256) {
+    uint256 _balBefore = stEth.balanceOf(address(this));
+    stEth.transferFrom(msg.sender, address(this), _initialStETH);
+    uint256 _deposit = stEth.balanceOf(address(this)) - _balBefore;
+    return _deposit;
+}
+```
+
+## Tools Used
+Manual code review and static analysis.
+
+## Recommended Mitigation Steps
+Introduce checks to revert the transaction if zero values are provided for the conversions or transfers. 
+
+#### Conversion of ETH to stETH
+```solidity
+function _convertRawEthToStETH(uint256 _initialETH) internal returns (uint256) {
+    require(msg.value == _initialETH, "EbtcZapRouter: Incorrect ETH amount");
+    require(_initialETH > 0, "EbtcZapRouter: ETH amount must be greater than zero");
+    return _depositRawEthIntoLido(_initialETH);
+}
+```
+
+#### Conversion of WETH to stETH
+```solidity
+function _convertWrappedEthToStETH(uint256 _initialWETH) internal returns (uint256) {
+    require(_initialWETH > 0, "EbtcZapRouter: WETH amount must be greater than zero");
+    
+    uint256 _wETHBalBefore = wrappedEth.balanceOf(address(this));
+    wrappedEth.transferFrom(msg.sender, address(this), _initialWETH);
+    uint256 _wETHReiceived = wrappedEth.balanceOf(address(this)) - _wETHBalBefore;
+
+    uint256 _rawETHBalBefore = address(this).balance;
+    IWrappedETH(address(wrappedEth)).withdraw(_wETHReiceived);
+    uint256 _rawETHConverted = address(this).balance - _rawETHBalBefore;
+    return _depositRawEthIntoLido(_rawETHConverted);
+}
+```
+
+#### Transfer of stETH from caller
+```solidity
+function _transferInitialStETHFromCaller(uint256 _initialStETH) internal returns (uint256) {
+    require(_initialStETH > 0, "EbtcZapRouter: stETH amount must be greater than zero");
+
+    uint256 _balBefore = stEth.balanceOf(address(this));
+    stEth.transferFrom(msg.sender, address(this), _initialStETH);
+    uint256 _deposit = stEth.balanceOf(address(this)) - _balBefore;
+    return _deposit;
+}
+```
