@@ -1,0 +1,8 @@
+{
+  "contest": 401,
+  "handle": "MrValioBg",
+  "risk": "3",
+  "title": "exchangeData can be maliciously used for arbitraty calls, even when DEXes are hardcoded and trusted like 1inch and 0x",
+  "issueId": 177,
+  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/177"
+}
