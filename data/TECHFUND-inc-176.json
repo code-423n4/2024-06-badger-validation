@@ -1,0 +1,8 @@
+{
+  "contest": 401,
+  "handle": "TECHFUND-inc",
+  "risk": "2",
+  "title": "Lack of Slippage protection in `LeverageZapRouterBase::_getSwapOperations` function could potentially force user to pay more than what they are expecting.",
+  "issueId": 176,
+  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/176"
+}
