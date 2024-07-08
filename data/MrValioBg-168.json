@@ -1,0 +1,8 @@
+{
+  "contest": 401,
+  "handle": "MrValioBg",
+  "risk": "2",
+  "title": "If permit was previously set to Persistent, interacting with another position can override it to None.",
+  "issueId": 168,
+  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/168"
+}
