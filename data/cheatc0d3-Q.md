@@ -1,4 +1,4 @@
-# QA Report: Badger eBTC Zap Router
+# QA Report: BadgerDAO eBTC Zap Router
 
 ## L-01: zapFeeReceiver cannot be updated after contract deployment which can be problematic
 
