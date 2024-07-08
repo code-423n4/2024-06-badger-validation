@@ -1,0 +1,8 @@
+{
+  "contest": 401,
+  "handle": "m4ttm",
+  "risk": "2",
+  "title": "_doSwapChecks should use >= rather than > when checking balance",
+  "issueId": 181,
+  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/181"
+}
