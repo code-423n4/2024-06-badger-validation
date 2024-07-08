@@ -1,0 +1,8 @@
+{
+  "contest": 401,
+  "handle": "cheatc0d3",
+  "risk": "2",
+  "title": "Lack of Slippage Protections for Asset Conversions in ZapRouterBase",
+  "issueId": 188,
+  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/188"
+}
