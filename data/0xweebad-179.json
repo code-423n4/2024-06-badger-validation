@@ -1,0 +1,8 @@
+{
+  "contest": 401,
+  "handle": "0xweebad",
+  "risk": "3",
+  "title": "ATTACKER CAN WEAPONISE WRONG VALIDATION IN requireSingularMarginChange() function TO CLEAR HIS DEBT WITHOUT REPAYMENT USING adjustCdp function AND HENCE INCREASE HIS ICR TO BE ABLE TO BORROW MORE",
+  "issueId": 179,
+  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/179"
+}
