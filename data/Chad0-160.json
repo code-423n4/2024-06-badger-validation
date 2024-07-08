@@ -1,0 +1,8 @@
+{
+  "contest": 401,
+  "handle": "Chad0",
+  "risk": "2",
+  "title": "Two user touchpoint routers not sharing a global reentrancy guard opens the door for cross-contract reentrancy attack",
+  "issueId": 160,
+  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/160"
+}
