@@ -189,8 +189,7 @@ https://github.com/code-423n4/2024-06-badger/blob/main/ebtc-protocol/packages/co
 ```
 ## [L-09] Insecure ETH Transfer Method 
 
-Function `_depositRawEthIntoLido` uses a low-level call which can be risky, as it does not automatically revert the transaction on failure. Recommended to use `transfer` or `send`, which automatically revert on failure. 
-Or alternatively can revert depending on the bool that is returned like this:
+Function `_depositRawEthIntoLido` uses a low-level call which can be risky, as it does not automatically revert the transaction on failure. Recommended to use `transfer` or `send`, which automatically revert on failure. Or alternatively can revert depending on the bool that is returned like this:
 
 ```solidity
     (bool success, ) = payable(address(stEth)).call{value: _initialETH}("");
