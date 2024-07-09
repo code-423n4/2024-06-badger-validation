@@ -1,0 +1,157 @@
+issue,title,validator comment,grade,root cause (URL),size
+findings-11,Price manipulation in the DEX,price is from offchain oracle,Unsatisfactory,,68
+findings-12,openCdp，adjustCdp Sliding point control may fail,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/LeverageZapRouterBase.sol#L269,188
+findings-14,Staking ETH incorrectly assumes revert bubbling,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/ZapRouterBase.sol#L38,190
+findings-3,Both routers don't support third party delegating operations on CDP,,Unsatisfactory,,107
+findings-7,Main variables - Position manager allows needs to be revoked after each operation can be bypassed,,Unsatisfactory,,113
+findings-8,Incorrect collateral calculation,collateral is stETH share,Unsatisfactory,,28
+findings-9,"ZapRouter Contract Can Retain Tokens, Breaking Invariant",user error,Unsatisfactory,,90
+validation-10,no check that `_stETHDiff` is greater than zero  ,,Unsatisfactory,,30
+validation-100,ZapRouterBase::_depositRawEthIntoLido Lacks Proper Validation Checks for Low-Level call,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/ZapRouterBase.sol#L38,79
+validation-101,Unchecked Low-Level Call in _depositRawEthIntoLido Function,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/ZapRouterBase.sol#L38,43
+validation-102,Malicious actors can donate steth temporarily to Sandwich and MEV swaps through the router,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-protocol/packages/contracts/contracts/LeverageMacroBase.sol#L491-L492,207
+validation-103,Lack of Slippage Protection in Token Swaps,,Unsatisfactory,,67
+validation-104,Improper CDP Borrower Address Handling in `_openCdpCallback` Function,,Unsatisfactory,,85
+validation-105,Flash Loan Transaction Might Always End up Reverting Due to An Assumption That The Receiver Has Already Set The Necessary Approval,set to type(uint256).max in constructor(),Unsatisfactory,,114
+validation-106,ERC20 tokens with no return value will fail to transfer,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/ZapRouterBase.sol#L38,61
+validation-107,Unchecked .call() Low-Level Function Result,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/ZapRouterBase.sol#L38,164
+validation-108,Reverting all actions,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-protocol/packages/contracts/contracts/LeverageMacroBase.sol#L241,50
+validation-109,Inconsistent Collateral Assignment in `openCdpWithWstEth` Function Allows Under-Collateralized CDP Creation,,Unsatisfactory,,305
+validation-11,lack checks `_stETHReiceived`,,Unsatisfactory,,35
+validation-110,ETH Lockup Due to Lack of Error Handling in EbtcLeverageZapRouter Contract,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/ZapRouterBase.sol#L38,62
+validation-111,Failure in ETH to stETH Conversion Without User Feedback in EbtcLeverageZapRouter Contract,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/ZapRouterBase.sol#L38,55
+validation-112,Unintended Swap Failures Leading to  DoS in `_doSwapChecks` Function,,Unsatisfactory,,70
+validation-113,Incorrect Comparison Logic in Post-Operation Checks,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/LeverageZapRouterBase.sol#L269,73
+validation-114,"Position Manager Permit Not Revoked After Operations, Compromising CDP Security",,Unsatisfactory,,57
+validation-115,Unchecked return value of the low-level call() in `_depositRawEthIntoLido` .,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/ZapRouterBase.sol#L38,53
+validation-116,Insufficient Collateral Transfer Check in _getAdjustCdpParams,,Unsatisfactory,,363
+validation-117,Fixed Hash Value in LeverageMacroBase contract,,Unsatisfactory,,83
+validation-118,Unchecked ETH Transfer in _depositRawEthIntoLido Function,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/ZapRouterBase.sol#L38,40
+validation-12,`doOperation` Marked External But Always Reverts,,Unsatisfactory,,47
+validation-120,Deposit success on Lido is not checked which could lead to unexpected behavior,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/ZapRouterBase.sol#L38,57
+validation-121,The contract does not sweep potential remaining stETH tokens,,Unsatisfactory,,109
+validation-122,Adjusting a CDP allows a user to reduce their collateral under the threshold enforced by the protocol,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/main/ebtc-zap-router/src/EbtcLeverageZapRouter.sol#L403-L467,93
+validation-123,"In the _doSwapChecks function, the comparison between the number of tokens received and expectedMinOut should use >=",,Unsatisfactory,,57
+validation-124,Users can re-enter Router through DEX to reduce the cost of flash loan from BorrowerOperations,nonReentrant exists on _openCdp(),Unsatisfactory,,57
+validation-125,The condition check for parameters in the _getPostCheckParams function is reversed,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/LeverageZapRouterBase.sol#L269,161
+validation-126,Wrong judgment causes the user's check to not work,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/LeverageZapRouterBase.sol#L269,39
+validation-127,Not real closing cdp,called in flashloan callback func,Unsatisfactory,,39
+validation-128,The router may not be able to operate due to insufficient funds.,funds from flashloan,Unsatisfactory,,31
+validation-129,"Protocol or Users won't be eligible for Lido's referral rewards for depositing ETH, as the referral account is not properly set.",referal program looks retired https://snapshot.org/#/lido-snapshot.eth/proposal/0xc017c451cd1ec85bf259d1f866844da296bb0f3209fd58297ccf07f7e91fa690,Unsatisfactory,,35
+validation-13, Add Require Statement to Handle Potential Failures in _depositRawEthIntoLido Function,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/ZapRouterBase.sol#L38,32
+validation-130,Unlocked Pragma,,Unsatisfactory,,39
+validation-131,If Lido eth deposit reverts all users deposited Eth  will be locked in smart contract,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/ZapRouterBase.sol#L38,66
+validation-132,Misalignment in Borrower Assignment when Opening CDP,,Unsatisfactory,,117
+validation-133,`excessivelySafeCall` will not work with protocol that returns err-code instead of reverting,,Unsatisfactory,,54
+validation-134,[M-1] If any eBTC or stETH are accidentally locked the first user to openCDP will gain all of them ,,Unsatisfactory,,74
+validation-136,USER CAN INFLATE HIS COLLATERAL  SHARES TO STEAL PROTOCOL AND OTHER USER SHARES OR EVEN DOS THE PROTOCOL,,Unsatisfactory,,105
+validation-137,Use call instead of transfer,,Unsatisfactory,,62
+validation-138,[H-2] Missing validation for `TradeData`,No specific attack path,Unsatisfactory,,36
+validation-142,Unchecked return value from low-level `call()`,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/ZapRouterBase.sol#L38,25
+validation-143,"`_convertWrappedEthToStETH` of `ZapRouterBase` is mathematically incorrect, can potentially break the functionality of protocol","Eth , wEth and StEth are not expected to exist sametime",Unsatisfactory,,89
+validation-144,"`_depositRawEthIntoLido` doesn't check for after - before balance, can lead to first depositor vulnerability",,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/ZapRouterBase.sol#L38,58
+validation-145,Unsafe Ether Deposit Using Low-Level call in _depositRawEthIntoLido function,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/ZapRouterBase.sol#L38,45
+validation-146,`LeverageMacroBase::_doOperation` will revert if `willSweep` is set to true,,Satisfactory,https://github.com/ebtc-protocol/ebtc/blob/2da05f2d1354190eacf64ec256d2c5c5358e5fa2/packages/contracts/contracts/LeverageMacroBase.sol#L241-L243,238
+validation-148,Position Manager Permit Not Consistently Revoked After Operations,,Unsatisfactory,,71
+validation-149,Incorrect comparison logic in `_doCheckValueType` leading to incorrect post-operation checks,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/LeverageZapRouterBase.sol#L269,72
+validation-15,Lack of input validation on the _convertWrappedEthToStETH function in the ZapRouterBase contract,,Unsatisfactory,,58
+validation-151,Unchecked Return Value in LeverageMacroBase._doSwap,,Unsatisfactory,,41
+validation-153,Fee calculation in `LeverageZapRouterBase` may result in excessive fees and inaccurate CDP debt,,Unsatisfactory,,78
+validation-154,A user could sandwich the oracle update by opening and closing `cdp` to gain profits,There is slippage protection,Unsatisfactory,,27
+validation-155,Mistakenly-sent stETH/eBTC could be used by the next user to openCdp/closeCdp,user error,Unsatisfactory,,82
+validation-158,Lack of Token Validation in `_getSwapOperations` Function Can Lead to Incorrect Token Handling,No specific attack path,Unsatisfactory,,42
+validation-159,Missing the return value check when sending native ETH to Lido can result in mis-functioning of _adjustCDP and user's fund lost,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/ZapRouterBase.sol#L38,140
+validation-160,Two user touchpoint routers not sharing a global reentrancy guard opens the door for cross-contract reentrancy attack,_doSwap() can only call to trusted DEX,Unsatisfactory,,31
+validation-161,Protocol supports stETH but doesn't consider its unique transfer logic which would lead to not only a DOS of the depositing/withdrawal channel for this collateral token but also a flaw in multiple other core protocol logic,,Unsatisfactory,,47
+validation-163,`try/catch` doesn't catch every error which may lead to silent failure,,Unsatisfactory,,58
+validation-166,The function borrowerOperations.adjustCdpWithColl in the smart contract incorrectly assess a fee even when the debt does not increase,_adjustCdpCallback() is overriden in LeverageZapRouterBase.sol,Unsatisfactory,,34
+validation-167,[H-1] User can open CDP position passing **unallowed** tokens in `TradeData.exchangeData`,,Unsatisfactory,,191
+validation-168,Persistent PermitApprovals can get overridden when interacting with CDPs.,,Unsatisfactory,,113
+validation-169,A large amount of Ether can be sent to the user who closes a CDP in 'EbtcLeverageZapRouter' contract,,Unsatisfactory,,59
+validation-17,Unchecked return value on call in the _convertRawEthToStETH function on the ZapRouterBase contract,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/ZapRouterBase.sol#L38,98
+validation-170,[H-1] `PostCheckParams` do not validate collateral correctly.,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/LeverageZapRouterBase.sol#L269,135
+validation-171,Position manager can make calls on behalf of a user despite an expired deadline,,Unsatisfactory,,183
+validation-172,Unreliable Permit Handling Due to Phantom Function Vulnerability,,Unsatisfactory,,48
+validation-173,Lack of Slippage Protection in Trading Operations,,Unsatisfactory,,47
+validation-175,Unsafe downcasting in _getOwnerAddress function can be exploited to cause DoS,,Unsatisfactory,,43
+validation-176,Lack of Slippage protection in `LeverageZapRouterBase::_getSwapOperations` function could potentially force user to pay more than what they are expecting.,The input token amount could be fixed,Unsatisfactory,,34
+validation-177,"exchangeData can be maliciously used for arbitraty calls, even when DEXes are hardcoded and trusted like 1inch and 0x",,Unsatisfactory,,126
+validation-178,Replay Attacks possible on _permitPositionManagerApproval function,,Unsatisfactory,,58
+validation-179,ATTACKER CAN WEAPONISE WRONG VALIDATION IN requireSingularMarginChange() function TO CLEAR HIS DEBT WITHOUT REPAYMENT USING adjustCdp function AND HENCE INCREASE HIS ICR TO BE ABLE TO BORROW MORE,,Unsatisfactory,,138
+validation-181,_doSwapChecks should use >= rather than > when checking balance,,Unsatisfactory,,46
+validation-184,Unchecked Return Value in Low-Level `call` Function,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/ZapRouterBase.sol#L38,47
+validation-185,Potential False Positive Deposit Detection Due to stETH Rebasing,rebasing would not occur during deposit,Unsatisfactory,,55
+validation-186,`stETHMarginAmount` can be lower than the loan amount,,Unsatisfactory,,73
+validation-187,Inaccurate stETH Deposit Calculation Due to Rebasing in _transferInitialStETHFromCaller,,Unsatisfactory,,47
+validation-188,Lack of Slippage Protections for Asset Conversions in ZapRouterBase,,Unsatisfactory,,51
+validation-19,"Overcharging users, even if unintentional, can damage the protocol's reputation and erode user trust.",,Unsatisfactory,,81
+validation-21,Closing/Adjusting CDPs are done with a minute leakage in accounting and  funds,,Unsatisfactory,,84
+validation-22,Users are consistently receiving less eBTC than they should for the amount of debt they're incurring.,,Unsatisfactory,,126
+validation-23,Incorrect Parameter Handling in _adjustCdpOperation function within LeverageZapRouterBase contract,,Unsatisfactory,,102
+validation-24,Incorrect Parameter Handling in _openCdpOperation function within LeverageZapRouterBase contract,,Unsatisfactory,,107
+validation-25,Incorrect Parameter Handling in _closeCdpOperation function within LeverageZapRouterBase contract,,Unsatisfactory,,95
+validation-26,Missing Error Handling in sweepToCaller function within LeverageMacroBase contract,,Unsatisfactory,,60
+validation-27,Insufficient Input Validation in sweepToken function within LeverageMacroBase contract,,Unsatisfactory,,42
+validation-28,Incorrect Data Decoding in decodeFLData function within LeverageMacroBase contract,,Unsatisfactory,,52
+validation-29,Add Zero Address Check and Optional Event Emission in `_doSwapChecks`,,Unsatisfactory,,60
+validation-3,Unchecked return value of low-level `call()`/`delegatecall()`,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/ZapRouterBase.sol#L38,28
+validation-30, Vulnerability in `_doSwap` Function of `LeverageMacroBase` Contract Enables Unauthorized Token Transfers,,Unsatisfactory,,74
+validation-31,Discrepancy Between Documentation and Implementation in closeCdp Function Regarding Collateral Return Type,,Unsatisfactory,,66
+validation-32,Misleading Comment and Incorrect Logic in adjustCdpWithWrappedEth Function Handling WETH vs WstETH,,Unsatisfactory,,53
+validation-33,Any Ether sent beyond the specified _ethMarginBalance is lost.,user error,Unsatisfactory,,101
+validation-34,"doOperation Function Always Reverts, Rendering It Unusable in LeverageZapRouterBase.sol",,Unsatisfactory,,65
+validation-35,Private _sweepEbtc() Function Transfers Balance to msg.sender Without Proper Access Control,,Unsatisfactory,,83
+validation-36,Missing Success Check in _openCdpForCallback Leads to Potential Fee Transfer Without CDP Creation,,Unsatisfactory,,94
+validation-37,Lack of Minimum Deposit Check in _depositRawEthIntoLido May Lead to Loss of Funds,,Unsatisfactory,,35
+validation-39,Reentrancy vulnerability,,Unsatisfactory,,98
+validation-40,CDP operations can be performed even when the permit is expired,would rerert in later execution,Unsatisfactory,,86
+validation-42,User can send eth to router,,Unsatisfactory,,43
+validation-43,The leverage router doesn't support users to pay eBTC debt back with their own assets,not issue,Unsatisfactory,,31
+validation-44,Owner can't change `zapFeeBPS` and `zapFeeReceiver`,,Unsatisfactory,,49
+validation-45,`flashLoan` function's result is not checked.,revert if not success,Unsatisfactory,,45
+validation-46,Relying on the difference in the contract's stETH balance before and after the `_closeCdpOperation` could potentially allow excess withdrawal of `stETH`,,Unsatisfactory,,64
+validation-49,Incorrect comparison logic in `_doCheckValueType` leading to incorrect post-operation checks,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/LeverageZapRouterBase.sol#L269,61
+validation-50,Incorrect comparison logic in `_doCheckValueType` leading to incorrect post-operation checks,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/LeverageZapRouterBase.sol#L269,61
+validation-52,Potential manipulation of CDP queue position through unvalidated upperHint and lowerHint parameters,hint checked in sortedCap contract,Unsatisfactory,,73
+validation-54,ZapRouterBase._permitPositionManagerApproval() will bypass an expired permit.,,Unsatisfactory,,143
+validation-55,The conversion path from ETH to stETH can be suboptimal in `ZapRouterBase` and cause loss of funds when depositing especially in a a 1:1 ratio,,Unsatisfactory,,86
+validation-56,"LeverageZapRouterBase.sol :: _adjustCdpOperation() is using the amount of stETH instead of ETH, resulting in an incorrect calculation of the shares needed to modify the collateral.",,Unsatisfactory,,130
+validation-58,Front-Running in Position Manager Approval,,Unsatisfactory,,82
+validation-59,Position Manager Approval Remains Active After Operations,,Unsatisfactory,,47
+validation-60,"Fees can be bypassed when sweeping tokens, leading to a loss of protocol revenue",,Unsatisfactory,,86
+validation-61,Potential for token dust accumulation violates contract invariant,,Unsatisfactory,,114
+validation-62,Inconsistent Token Sweeping May Leave Residual Tokens in ZapRouter,,Unsatisfactory,,73
+validation-63,Inconsistent Fee Assessment in CDP Operations,,Unsatisfactory,,90
+validation-64,Reentrancy Attack in `flashLoan` Function,,Unsatisfactory,,129
+validation-66,Retention of non-stETH tokens in ZapRouter contract,,Unsatisfactory,,63
+validation-67,The function _openCdp does not use _stEthMarginAmount causing the token transfer from user is useless,,Unsatisfactory,,108
+validation-69,Fee calculation in `LeverageZapRouterBase` could lead to excessive fees being charged and inaccurate CDP debt,,Unsatisfactory,,58
+validation-7,Precision Loss in stETH to wstETH Conversion Leading to Fund Loss,,Unsatisfactory,,71
+validation-71,Excessive Approval Amount in LeverageZapRouterBase Contract,,Unsatisfactory,,57
+validation-72,Fixed liquidation reward will cause bad debt,"design choice, no enough proof",Unsatisfactory,,39
+validation-73,"An invariant is broken which relates to Position Manager Permit not being revoked after operations, allowing unauthorized access to user CDPs",,Unsatisfactory,,79
+validation-74,_doSwapChecks might fail to validate the expectedMinOut constraint.,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/main/ebtc-protocol/packages/contracts/contracts/LeverageMacroBase.sol#L491,702
+validation-75,Wrong slippage control for the collateral shares for a cdp due to logical error in LeverageZapRouterBase._getPostCheckParams.,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/LeverageZapRouterBase.sol#L269,739
+validation-76,`Operator.gte` is used for both increase or decrease CDP adjustments,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/LeverageZapRouterBase.sol#L269,71
+validation-77,Leverage router cannot perform debt decrease and collateral increase,design choice,Unsatisfactory,,78
+validation-78,Unexpected Ether Balance (SWC-132) in the _convertWrappedEthToStETH function of the ZapRouterBase contract affecting the EbtcLeverageZapRouter contract,,Unsatisfactory,,154
+validation-79,Weak Sources of Randomness from Chain Attributes in EbtcLeverageZapRouter contract,,Unsatisfactory,,128
+validation-80,Block Values Used as a Proxy for Time in EbtcLeverageZapRouter contract,,Unsatisfactory,,96
+validation-81,Unprotected Ether Withdrawal Found (transfer/send) in the ZapRouterBase contract _transferInitialStETHFromCaller function affecting the EbtcLeverageZapRouter contract,,Unsatisfactory,,217
+validation-82, an absence of a repayment verification ,,Unsatisfactory,,41
+validation-83,Low-level call return value is not checked ,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/ZapRouterBase.sol#L38,28
+validation-84,Weak sources of randomness from chain attributes in LeverageMacroBase contract,,Unsatisfactory,,225
+validation-85,Block values used as a proxy for time found in LeverageMacroBase contract,,Unsatisfactory,,146
+validation-87,Bad Actor can Completely Sweep Off StEth in Contract,,Unsatisfactory,,103
+validation-88,Sunnyboy95 - Security Enhancements and Best Practices Implementation for `EbtcLeverageZapRouter` Contract,,Unsatisfactory,,284
+validation-89,Users Will Be Able to open CDPs with insufficient collateral due to Incorrect Collateral Value Handling in CDP Opening Process,,Unsatisfactory,,47
+validation-9,Lack of Explanation on Emitting Events for Revert Reasons on the EbtcLeverageZapRouter contract,,Unsatisfactory,,261
+validation-90,Potential Collateral Requirement Oversight in CDP Adjustment Functions,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/EbtcLeverageZapRouter.sol#L403,25
+validation-91,Incorrect conversion to eth to stEth. ,,Unsatisfactory,,54
+validation-92,Not checking return value on flashLoan contract,,Unsatisfactory,,60
+validation-93,LeverageMacroBase::_doSwapChecks Misleading Balance Calculation Compromises Slippage Protection,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/main/ebtc-protocol/packages/contracts/contracts/LeverageMacroBase.sol#L491,59
+validation-95,Eth could be stuck in the contract,user error,Unsatisfactory,,54
+validation-96,Incorrect parameters used in  slippage checks while openingCdp.,,Unsatisfactory,,31
+validation-97,Potential Misinterpretation of Liquidator Rewards in Smart Contract Logic,,Unsatisfactory,,44
+validation-98,Wrong `Operator` used for `expectedCollateral`,,Satisfactory,https://github.com/code-423n4/2024-06-badger/blob/9173558ee1ac8a78a7ae0a39b97b50ff0dd9e0f8/ebtc-zap-router/src/LeverageZapRouterBase.sol#L269,51
+validation-99,Incorrect Parameter Order in Struct Initialization Leading to Financial Miscalculations,,Unsatisfactory,,46
