@@ -4,5 +4,7 @@
   "risk": "3",
   "title": "If Lido eth deposit reverts all users deposited Eth  will be locked in smart contract",
   "issueId": 131,
-  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/131"
+  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/131",
+  "validatedIssueId": 25,
+  "validatedIssueUrl": "https://github.com/code-423n4/2024-06-badger-findings/issues/25"
 }
