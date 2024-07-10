@@ -4,5 +4,7 @@
   "risk": "2",
   "title": "ETH Lockup Due to Lack of Error Handling in EbtcLeverageZapRouter Contract",
   "issueId": 110,
-  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/110"
+  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/110",
+  "validatedIssueId": 33,
+  "validatedIssueUrl": "https://github.com/code-423n4/2024-06-badger-findings/issues/33"
 }
