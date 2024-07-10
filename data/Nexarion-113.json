@@ -4,5 +4,7 @@
   "risk": "2",
   "title": "Incorrect Comparison Logic in Post-Operation Checks",
   "issueId": 113,
-  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/113"
+  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/113",
+  "validatedIssueId": 31,
+  "validatedIssueUrl": "https://github.com/code-423n4/2024-06-badger-findings/issues/31"
 }
