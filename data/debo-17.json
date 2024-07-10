@@ -4,5 +4,7 @@
   "risk": "2",
   "title": "Unchecked return value on call in the _convertRawEthToStETH function on the ZapRouterBase contract",
   "issueId": 17,
-  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/17"
+  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/17",
+  "validatedIssueId": 44,
+  "validatedIssueUrl": "https://github.com/code-423n4/2024-06-badger-findings/issues/44"
 }
