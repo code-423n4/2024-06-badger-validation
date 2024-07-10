@@ -4,5 +4,7 @@
   "risk": "2",
   "title": "The condition check for parameters in the _getPostCheckParams function is reversed",
   "issueId": 125,
-  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/125"
+  "issueUrl": "https://github.com/code-423n4/2024-06-badger-validation/issues/125",
+  "validatedIssueId": 27,
+  "validatedIssueUrl": "https://github.com/code-423n4/2024-06-badger-findings/issues/27"
 }
